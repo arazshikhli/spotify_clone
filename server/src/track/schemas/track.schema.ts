@@ -3,7 +3,7 @@ import { type } from 'os';
 import * as mongoose from 'mongoose'
 
 
-export type TrackDocument=mongoose.HydratedDocument<Track>
+export type TrackDocument=Track&Document
 
 @Schema()
 export class Track{
@@ -17,7 +17,7 @@ export class Track{
     text: string;
 
     @Prop()
-    listens: string;
+    listens: number;
 
     @Prop()
     picture: string;
@@ -25,12 +25,8 @@ export class Track{
     @Prop()
     audio: string;
 
-    @Prop({
-      type: [
-        {type:mongoose.Schema.Types.ObjectId,ref:'Comment'}
-       ]
-    })
+    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]})
     comments: Comment[];
 }
 
-export const CommentSchema=SchemaFactory.createForClass(Track)
+export const TrackSchema=SchemaFactory.createForClass(Track)
